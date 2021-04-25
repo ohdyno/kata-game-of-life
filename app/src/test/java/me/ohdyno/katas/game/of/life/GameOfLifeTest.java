@@ -11,18 +11,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class GameOfLifeTest {
     @UseReporter(ClipboardReporter.class)
     @Test
-    void gameOfLifeAdvancesToNextWorldAndTheNewWorldCanBeObserved() {
-        World world = new World();
+    void gameOfLifeAdvancesToNextGridAndTheNewGridCanBeObserved() {
+        Grid grid = new Grid();
         LifeObserverSpy observer = new LifeObserverSpy();
         GameOfLife game = new GameOfLife(observer);
 
-        game.advance(world);
+        game.advance(grid);
 
-        Approvals.verify(observer.observedWorld());
+        Approvals.verify(observer.observed());
     }
 
     private static class LifeObserverSpy implements LifeObserver {
-        public World observedWorld() {
+        public Grid observed() {
             return null;
         }
     }

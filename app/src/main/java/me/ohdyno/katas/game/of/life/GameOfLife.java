@@ -5,7 +5,7 @@ public class GameOfLife {
 
     }
 
-    void advance(World world) {
+    void advance(Grid grid) {
 
     }
 }
