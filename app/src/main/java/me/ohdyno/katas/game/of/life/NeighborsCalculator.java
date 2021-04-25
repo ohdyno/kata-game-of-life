@@ -1,10 +1,14 @@
 package me.ohdyno.katas.game.of.life;
 
 public class NeighborsCalculator {
-    public NeighborsCalculator(LifeCreator creator) {
-    }
-
-    public int calculate(int x, int y) {
-        return 0;
+    public int calculate(int x, int y, LifeCreator creator) {
+        int neighbors = 0;
+        if (creator.lifeExistsAt(x, y - 1)) {
+            neighbors++;
+        }
+        if (creator.lifeExistsAt(x, y + 1)) {
+            neighbors++;
+        }
+        return neighbors;
     }
 }

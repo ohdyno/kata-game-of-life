@@ -12,7 +12,7 @@ public class Grid {
     public Grid(int width, int height, LifeCreator creator) {
         this.width = width;
         this.height = height;
-        this.creator = creator;
+        this.creator = new BoundedLifeCreator(width, height, creator);
     }
 
     public Grid advance() {
@@ -20,7 +20,7 @@ public class Grid {
     }
 
     private boolean livesNextGeneration(int x, int y) {
-        int neighbors = new NeighborsCalculator(this.creator).calculate(x,y);
+        int neighbors = new NeighborsCalculator().calculate(x, y, creator);
         return neighbors == 2;
     }
 
@@ -42,5 +42,29 @@ public class Grid {
         }
         builder.deleteCharAt(builder.length() - 1);
         return builder.toString();
+    }
+
+    private static class BoundedLifeCreator implements LifeCreator {
+        private final int width;
+        private final int height;
+        private final LifeCreator creator;
+
+        public BoundedLifeCreator(int width, int height, LifeCreator creator) {
+            this.width = width;
+            this.height = height;
+            this.creator = creator;
+        }
+
+        @Override
+        public boolean lifeExistsAt(int x, int y) {
+            if (isOutOfBound(y, height) || isOutOfBound(x, width)) {
+                return false;
+            }
+            return this.creator.lifeExistsAt(x, y);
+        }
+
+        private boolean isOutOfBound(int n, int boundary) {
+            return n < 0 || n >= boundary;
+        }
     }
 }
