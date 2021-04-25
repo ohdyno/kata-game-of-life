@@ -12,7 +12,7 @@ class GameOfLifeTest {
     @UseReporter(ClipboardReporter.class)
     @Test
     void gameOfLifeAdvancesToNextGridAndTheNewGridCanBeObserved() {
-        Grid grid = new Grid();
+        Grid grid = new Grid(1,1);
         LifeObserverSpy observer = new LifeObserverSpy();
         GameOfLife game = new GameOfLife(observer);
 
