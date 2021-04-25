@@ -53,4 +53,19 @@ class GridTest {
 
         Approvals.verify(grid.advance());
     }
+
+    @Test
+    void cellDiesWithMoreThanThreeNeighbors() {
+        Grid grid = new Grid(3, 3, (x, y) -> {
+            boolean[][] cells = {
+                    {true, false, true},
+                    {false, true, false},
+                    {true, false, true},
+            };
+
+            return cells[x][y];
+        });
+
+        Approvals.verify(grid.advance());
+    }
 }
