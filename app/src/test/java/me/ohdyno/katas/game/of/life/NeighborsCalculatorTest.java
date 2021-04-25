@@ -15,16 +15,20 @@ class NeighborsCalculatorTest {
     @Test
     void neighborsInTheSameRow() {
         final NeighborsCalculator calculator = new NeighborsCalculator();
-        assertEquals(1, calculator.calculate(0, 0, (x, y) -> x == 0 && y == 1));
-        assertEquals(1, calculator.calculate(0, 0, (x, y) -> x == 0 && y == -1));
-        assertEquals(2, calculator.calculate(0, 0, (x, y) -> x == 0 && y == -1 || x == 0 && y == 1));
+        final int atX = 0;
+        final int atY = 0;
+        assertEquals(1, calculator.calculate(atX, atY, (x, y) -> x == atX && y == atY + 1));
+        assertEquals(1, calculator.calculate(atX, atY, (x, y) -> x == atX && y == atY - 1));
+        assertEquals(2, calculator.calculate(atX, atY, (x, y) -> x == atX && y == atY - 1 || x == atX && y == atY + 1));
     }
 
     @Test
     void neighborsInTheSameColumn() {
         final NeighborsCalculator calculator = new NeighborsCalculator();
-        assertEquals(1, calculator.calculate(0, 0, (x, y) -> x == 1 && y == 0));
-        assertEquals(1, calculator.calculate(0, 0, (x, y) -> x == -1 && y == 0));
-        assertEquals(2, calculator.calculate(0, 0, (x, y) -> x == 1 && y == 0 || x == -1 && y == 0));
+        final int atX = 0;
+        final int atY = 0;
+        assertEquals(1, calculator.calculate(atX, atY, (x, y) -> x == atX + 1 && y == atY));
+        assertEquals(1, calculator.calculate(atX, atY, (x, y) -> x == atX - 1 && y == atY));
+        assertEquals(2, calculator.calculate(atX, atY, (x, y) -> x == atX + 1 && y == atY || x == atX - 1 && y == atY));
     }
 }
