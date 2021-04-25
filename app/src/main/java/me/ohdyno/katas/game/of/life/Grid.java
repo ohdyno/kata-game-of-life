@@ -4,6 +4,7 @@ public class Grid {
     private final int width;
     private final int height;
     private final LifeCreator creator;
+    private final MemoizedPrinter memoizedPrinter;
 
     public Grid(int width, int height) {
         this(width, height, (_x, _y) -> false);
@@ -13,6 +14,7 @@ public class Grid {
         this.width = width;
         this.height = height;
         this.creator = new BoundedLifeCreator(width, height, creator);
+        this.memoizedPrinter = new MemoizedPrinter(this);
     }
 
     public Grid advance() {
@@ -24,27 +26,12 @@ public class Grid {
         if (neighbors == 3) {
             return true;
         }
-        return creator.lifeExistsAt(x,y) && neighbors == 2;
+        return creator.lifeExistsAt(x, y) && neighbors == 2;
     }
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                String mark;
-                if (creator.lifeExistsAt(i, j)) {
-                    mark = "o";
-                } else {
-                    mark = "_";
-                }
-                builder.append(mark).append(" ");
-            }
-            builder.deleteCharAt(builder.length() - 1);
-            builder.append("\n");
-        }
-        builder.deleteCharAt(builder.length() - 1);
-        return builder.toString();
+        return memoizedPrinter.print();
     }
 
     private static class BoundedLifeCreator implements LifeCreator {
@@ -68,6 +55,46 @@ public class Grid {
 
         private boolean isOutOfBound(int n, int boundary) {
             return n < 0 || n >= boundary;
+        }
+    }
+
+    private static class MemoizedPrinter {
+        private final Grid grid;
+        private String memoized;
+
+        public MemoizedPrinter(Grid grid) {
+            this.grid = grid;
+        }
+
+        private String print() {
+            if (memoized == null) {
+                return printAndMemoize(grid);
+            }
+            return memoized;
+        }
+
+        private String printAndMemoize(Grid grid) {
+            this.memoized = freshPrint(grid);
+            return memoized;
+        }
+
+        private String freshPrint(Grid grid) {
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < grid.width; i++) {
+                for (int j = 0; j < grid.height; j++) {
+                    String mark;
+                    if (grid.creator.lifeExistsAt(i, j)) {
+                        mark = "o";
+                    } else {
+                        mark = "_";
+                    }
+                    builder.append(mark).append(" ");
+                }
+                builder.deleteCharAt(builder.length() - 1);
+                builder.append("\n");
+            }
+            builder.deleteCharAt(builder.length() - 1);
+            return builder.toString();
         }
     }
 }
