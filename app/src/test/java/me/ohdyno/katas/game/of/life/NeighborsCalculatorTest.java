@@ -51,7 +51,6 @@ class NeighborsCalculatorTest {
         final NeighborsCalculator calculator = new NeighborsCalculator();
         final int atX = 0;
         final int atY = 0;
-        assertEquals(1, calculator.calculate(atX, atY, (x, y) -> x == atX + 1 && y == atY || x == atX && y == atY));
-        assertEquals(1, calculator.calculate(atX, atY, (x, y) -> x == atX && y == atY + 1 || x == atX && y == atY));
+        assertEquals(0, calculator.calculate(atX, atY, (x, y) -> x == atX && y == atY));
     }
 }
