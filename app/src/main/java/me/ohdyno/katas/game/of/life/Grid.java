@@ -15,6 +15,10 @@ public class Grid {
         this.creator = creator;
     }
 
+    public Grid advance() {
+        return new Grid(width, height);
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
