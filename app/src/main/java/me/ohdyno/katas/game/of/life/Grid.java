@@ -20,7 +20,8 @@ public class Grid {
     }
 
     private boolean livesNextGeneration(int x, int y) {
-        return false;
+        int neighbors = new NeighborsCalculator(this.creator).calculate(x,y);
+        return neighbors == 2;
     }
 
     @Override
