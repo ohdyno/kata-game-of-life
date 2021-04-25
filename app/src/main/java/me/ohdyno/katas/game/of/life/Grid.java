@@ -16,7 +16,11 @@ public class Grid {
     }
 
     public Grid advance() {
-        return new Grid(width, height);
+        return new Grid(width, height, this::livesNextGeneration);
+    }
+
+    private boolean livesNextGeneration(int x, int y) {
+        return false;
     }
 
     @Override
