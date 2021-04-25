@@ -33,6 +33,20 @@ class NeighborsCalculatorTest {
     }
 
     @Test
+    void neighborsInTheCorners() {
+        final NeighborsCalculator calculator = new NeighborsCalculator();
+        final int atX = 0;
+        final int atY = 0;
+
+        assertEquals(1, calculator.calculate(atX, atY, (x, y) -> x == atX + 1 && y == atY + 1));
+        assertEquals(1, calculator.calculate(atX, atY, (x, y) -> x == atX - 1 && y == atY - 1));
+        assertEquals(2, calculator.calculate(atX, atY, (x, y) -> x == atX + 1 && y == atY + 1 || x == atX - 1 && y == atY - 1));
+        assertEquals(1, calculator.calculate(atX, atY, (x, y) -> x == atX - 1 && y == atY + 1));
+        assertEquals(1, calculator.calculate(atX, atY, (x, y) -> x == atX + 1 && y == atY - 1));
+        assertEquals(2, calculator.calculate(atX, atY, (x, y) -> x == atX - 1 && y == atY + 1 || x == atX + 1 && y == atY - 1));
+    }
+
+    @Test
     void selfIsNotCountedAmongTheNeighbors() {
         final NeighborsCalculator calculator = new NeighborsCalculator();
         final int atX = 0;
