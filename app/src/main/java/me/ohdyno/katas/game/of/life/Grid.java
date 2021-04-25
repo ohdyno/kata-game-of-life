@@ -21,6 +21,9 @@ public class Grid {
 
     private boolean livesNextGeneration(int x, int y) {
         int neighbors = new NeighborsCalculator().calculate(x, y, creator);
+        if (neighbors == 3) {
+            return true;
+        }
         return creator.lifeExistsAt(x,y) && neighbors == 2;
     }
 

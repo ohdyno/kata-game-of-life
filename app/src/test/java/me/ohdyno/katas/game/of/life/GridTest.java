@@ -38,4 +38,19 @@ class GridTest {
 
         Approvals.verify(grid.advance());
     }
+
+    @Test
+    void cellIsRebornWithThreeNeighbors() {
+        Grid grid = new Grid(3, 3, (x, y) -> {
+            boolean[][] cells = {
+                    {true, false, false},
+                    {false, false, false},
+                    {true, false, true},
+            };
+
+            return cells[x][y];
+        });
+
+        Approvals.verify(grid.advance());
+    }
 }
