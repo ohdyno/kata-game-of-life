@@ -13,10 +13,18 @@ class NeighborsCalculatorTest {
     }
 
     @Test
-    void neighborsAlongTheColumns() {
+    void neighborsInTheSameRow() {
         final NeighborsCalculator calculator = new NeighborsCalculator();
         assertEquals(1, calculator.calculate(0, 0, (x, y) -> x == 0 && y == 1));
         assertEquals(1, calculator.calculate(0, 0, (x, y) -> x == 0 && y == -1));
         assertEquals(2, calculator.calculate(0, 0, (x, y) -> x == 0 && y == -1 || x == 0 && y == 1));
+    }
+
+    @Test
+    void neighborsInTheSameColumn() {
+        final NeighborsCalculator calculator = new NeighborsCalculator();
+        assertEquals(1, calculator.calculate(0, 0, (x, y) -> x == 1 && y == 0));
+        assertEquals(1, calculator.calculate(0, 0, (x, y) -> x == -1 && y == 0));
+        assertEquals(2, calculator.calculate(0, 0, (x, y) -> x == 1 && y == 0 || x == -1 && y == 0));
     }
 }

@@ -6,6 +6,12 @@ public class NeighborsCalculator {
         if (creator.lifeExistsAt(x, y - 1)) {
             neighbors++;
         }
+        if (creator.lifeExistsAt(x - 1, y)) {
+            neighbors++;
+        }
+        if (creator.lifeExistsAt(x + 1, y)) {
+            neighbors++;
+        }
         if (creator.lifeExistsAt(x, y + 1)) {
             neighbors++;
         }
