@@ -11,8 +11,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class GameOfLifeTest {
     @UseReporter(ClipboardReporter.class)
     @Test
-    void appHasAGreetingWithApprovalTests() {
-        GameOfLife classUnderTest = new GameOfLife();
-        Approvals.verify(classUnderTest.getGreeting());
+    void gameOfLifeAdvancesToNextWorldAndTheNewWorldCanBeObserved() {
+        World world = new World();
+        LifeObserverSpy observer = new LifeObserverSpy();
+        GameOfLife game = new GameOfLife(observer);
+
+        game.advance(world);
+
+        Approvals.verify(observer.observedWorld());
+    }
+
+    private static class LifeObserverSpy implements LifeObserver {
+        public World observedWorld() {
+            return null;
+        }
     }
 }
