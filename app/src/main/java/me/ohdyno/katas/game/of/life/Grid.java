@@ -1,5 +1,7 @@
 package me.ohdyno.katas.game.of.life;
 
+import java.util.stream.IntStream;
+
 public class Grid {
     private final int width;
     private final int height;
@@ -71,18 +73,11 @@ public class Grid {
         }
 
         private String print() {
-            if (memoized == null) {
-                return printAndMemoize(grid);
-            }
+            if (memoized == null) this.memoized = print(grid);
             return memoized;
         }
 
-        private String printAndMemoize(Grid grid) {
-            this.memoized = freshPrint(grid);
-            return memoized;
-        }
-
-        private String freshPrint(Grid grid) {
+        private String print(Grid grid) {
             StringBuilder builder = new StringBuilder();
             for (int i = 0; i < grid.width; i++) {
                 for (int j = 0; j < grid.height; j++) {
