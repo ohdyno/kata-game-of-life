@@ -8,13 +8,19 @@ import org.junit.jupiter.api.Test;
 @UseReporter({ClipboardReporter.class, FileMergeReporter.class})
 class GridTest {
     @Test
-    void initializeGridWithNoLifeByDefault() {
-        Approvals.verify(new Grid(1, 3));
+    void initializeGridWithLifeCreator() {
+        Approvals.verify(new Grid(1, 3, (_x, _y) -> true));
     }
 
     @Test
-    void initializeGridWithLife() {
-        Approvals.verify(new Grid(1, 3, (_x, _y) -> true));
+    void initializeGridWith2DArray() {
+        boolean[][] cells = {
+                {true, false, false},
+                {false, false, false},
+                {true, false, true},
+        };
+
+        Approvals.verify(new Grid(3, 3, cells));
     }
 
     @Test

@@ -17,6 +17,10 @@ public class Grid {
         this.memoizedPrinter = new MemoizedPrinter(this);
     }
 
+    public Grid(int width, int height, boolean[][] cells) {
+        this(width, height, ((x, y) -> cells[x][y]));
+    }
+
     public Grid advance() {
         return new Grid(width, height, this::livesNextGeneration);
     }
