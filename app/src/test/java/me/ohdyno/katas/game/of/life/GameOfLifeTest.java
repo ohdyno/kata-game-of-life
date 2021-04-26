@@ -9,10 +9,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GameOfLifeTest {
-    @UseReporter(ClipboardReporter.class)
+    @UseReporter({ClipboardReporter.class, FileMergeReporter.class})
     @Test
     void gameOfLifeAdvancesToNextGridAndTheNewGridCanBeObserved() {
-        Grid grid = new Grid(1,1);
+        Grid grid = buildBlinkerGrid();
         LifeObserverSpy observer = new LifeObserverSpy();
         GameOfLife game = new GameOfLife(observer);
 
@@ -21,9 +21,25 @@ class GameOfLifeTest {
         Approvals.verify(observer.observed());
     }
 
+    private Grid buildBlinkerGrid() {
+        return new Grid(5, 5, (x, y) -> {
+            if (x == 2) {
+                return y == 1 || y == 2 || y == 3;
+            }
+            return false;
+        });
+    }
+
     private static class LifeObserverSpy implements LifeObserver {
+        private Grid observed;
+
         public Grid observed() {
-            return null;
+            return observed;
+        }
+
+        @Override
+        public void observed(Grid grid) {
+            observed = grid;
         }
     }
 }
