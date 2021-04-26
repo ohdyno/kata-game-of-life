@@ -14,13 +14,11 @@ class GridTest {
 
     @Test
     void initializeGridWith2DArray() {
-        boolean[][] cells = {
+        Approvals.verify(new Grid(3, 3, new boolean[][]{
                 {true, false, false},
                 {false, false, false},
                 {true, false, true},
-        };
-
-        Approvals.verify(new Grid(3, 3, cells));
+        }));
     }
 
     @Test
@@ -32,14 +30,10 @@ class GridTest {
 
     @Test
     void cellSurviveWithTwoNeighbors() {
-        Grid grid = new Grid(3, 3, (x, y) -> {
-            boolean[][] cells = {
-                    {true, false, false},
-                    {false, true, false},
-                    {false, false, true},
-            };
-
-            return cells[x][y];
+        Grid grid = new Grid(3, 3, new boolean[][]{
+                {true, false, false},
+                {false, true, false},
+                {false, false, true},
         });
 
         Approvals.verify(grid.advance());
@@ -47,14 +41,10 @@ class GridTest {
 
     @Test
     void cellIsRebornWithThreeNeighbors() {
-        Grid grid = new Grid(3, 3, (x, y) -> {
-            boolean[][] cells = {
-                    {true, false, false},
-                    {false, false, false},
-                    {true, false, true},
-            };
-
-            return cells[x][y];
+        Grid grid = new Grid(3, 3, new boolean[][]{
+                {true, false, false},
+                {false, false, false},
+                {true, false, true},
         });
 
         Approvals.verify(grid.advance());
@@ -62,14 +52,10 @@ class GridTest {
 
     @Test
     void cellDiesWithMoreThanThreeNeighbors() {
-        Grid grid = new Grid(3, 3, (x, y) -> {
-            boolean[][] cells = {
-                    {true, false, true},
-                    {false, true, false},
-                    {true, false, true},
-            };
-
-            return cells[x][y];
+        Grid grid = new Grid(3, 3, new boolean[][]{
+                {true, false, true},
+                {false, true, false},
+                {true, false, true},
         });
 
         Approvals.verify(grid.advance());
