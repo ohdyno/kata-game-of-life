@@ -1,5 +1,15 @@
 plugins {
-    java
+    id("application")
+    id("org.openjfx.javafxplugin") version "0.0.9"
+}
+
+javafx {
+    version = "11.0.2"
+    modules = listOf("javafx.controls")
+}
+
+application {
+    mainClass.set("me.ohdyno.katas.game.of.life.GUI")
 }
 
 repositories {
